@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TP3.media
+namespace TP3.comparer
 {
     public interface IMediaComparer
     {
