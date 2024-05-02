@@ -14,7 +14,7 @@ namespace PROF.media
     {
         private int currentMediaId;
         private Playlist currentPlaylist;
-        private List<Media> Medias;
+        private List<Media> medias;
 
         public int CurrentMediaId
         {
