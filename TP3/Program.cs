@@ -6,7 +6,7 @@ using System.Diagnostics;
 using WMPLib;
 using System.Numerics;
 
-namespace PROF
+namespace TP3
 {
     internal class Program
     {
@@ -18,7 +18,7 @@ namespace PROF
         public static void Main(string[] args)
         {
 
-            
+
         }
     }
 

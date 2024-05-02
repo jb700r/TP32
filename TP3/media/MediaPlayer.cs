@@ -3,13 +3,65 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using TP3.media;
 
 namespace PROF.media
 {
     public class MediaPlayer
     {
+        private int currentMediaId;
+        private Playlist currentPlaylist;
+        private List<Media> Medias;
+
+        public int CurrentMediaId
+        {
+            get { return currentMediaId; }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("L'id du média ne peut pas être négatif.");
+                }
+                currentMediaId = value;
+            }
+        }
+
+        public Playlist CurrentPlaylist
+        {
+            get { return currentPlaylist; }
+            set
+            {
+                currentPlaylist = value;
+            }
+        }
+
+        public List<Media> Medias
+        {
+            get { return medias; }
+            private set { medias = value; }
+        }
+
+
+        public MediaPlayer()
+        {
+
+        }
+
+        public void PlayNext()
+        {
+
+        }
+
+        public void Previous()
+        {
+
+        }
+
+
+
 
         // prof
         // Ces méthodes vous sont fournies pour lire le contenu des fichiers songs.music et videos.video
@@ -73,15 +125,22 @@ namespace PROF.media
                 }
 
             }
-
-            currentMediaId = 0;
             */
 
 
-
-
-            /* TEST*/
         }
+
+        public Playlist GetPlaylist()
+        {
+
+        }
+
+        public Medias GetUnusedMedia()
+        {
+
+        }
+
+
     }
 }
 
