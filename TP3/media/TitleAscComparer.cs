@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace TP3.media
 {
-    //public class TitleAscComparer : IMediaComparer
-    //{
-    //    public int Compare(Media media1, Media media2)
-    //    {
-    //        return string.Compare(media1.Title, media2.Title);
-    //    }
-    //}
+    public class TitleAscComparer : IMediaComparer
+    {
+        public int Compare(Media media1, Media media2)
+        {
+            return string.Compare(media1.Title, media2.Title);
+        }
+    }
 
 }
