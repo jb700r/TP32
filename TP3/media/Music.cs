@@ -8,6 +8,12 @@ namespace TP3.media
 {
     public class Music : Media
     {
+        public void Play() { }
+        public void Stop() { }
 
+        public Music(string title, int year) : base(title, year)
+        {
+
+        }
     }
 }

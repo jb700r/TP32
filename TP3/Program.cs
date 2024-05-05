@@ -1,6 +1,6 @@
-﻿using PROF.media;
-using PROF.menu;
-using PROF.comparer;
+﻿using TP3.media;
+using TP3.menu;
+using TP3.comparer;
 using System.Text;
 using System.Diagnostics;
 using WMPLib;
@@ -17,7 +17,11 @@ namespace TP3
 
         public static void Main(string[] args)
         {
-
+            Console.WriteLine("Your options are: ");
+            foreach (MainMenuOption option in Enum.GetValues(typeof(MainMenuOption))) 
+                {
+                Console.WriteLine(option);
+            }
 
         }
     }

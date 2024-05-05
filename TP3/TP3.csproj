@@ -19,8 +19,4 @@
     </COMReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="menu\" />
-  </ItemGroup>
-
 </Project>
