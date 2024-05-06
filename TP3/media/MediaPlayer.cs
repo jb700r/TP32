@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using TP3.comparer;
 using TP3.media;
 
 namespace PROF.media
@@ -47,20 +48,24 @@ namespace PROF.media
 
         public MediaPlayer()
         {
-
+            medias = new List<Media>();
         }
 
         public void PlayNext()
         {
-
+            if (currentPlaylist != null)
+            {
+                currentPlaylist.PlayNext();
+            }
         }
 
-        public void Previous()
+        public void PlayPrevious()
         {
-
+            if (currentPlaylist != null)
+            {
+                currentPlaylist.PlayPrevious();
+            }
         }
-
-
 
 
         // prof
@@ -126,20 +131,53 @@ namespace PROF.media
 
             }
             */
-
-
         }
 
         public Playlist GetPlaylist()
         {
-
+            return currentPlaylist;
         }
 
-        public Medias GetUnusedMedia()
+        public Media GetUnusedMedia()
         {
-
+            if (currentPlaylist != null)
+            {
+                List<Media> unusedMedias = currentPlaylist.FilterUnusedMedias(medias);
+                return unusedMedias.Count > 0 ? unusedMedias[0] : null;
+            }
+            return null;
         }
 
+        public void SortPlayList(IMediaComparer comparer)
+        {
+            if (currentPlaylist != null)
+            {
+                currentPlaylist.Sort(comparer);
+            }
+            else
+            {
+                throw new InvalidOperationException("Aucune playlist n'est définie.");
+            }
+        }
+
+        public void Stop()
+        {
+            if (currentPlaylist != null)
+            {
+                currentPlaylist.Stop();
+            }
+        }
+
+        public void WriteFile(string fileName, string[] linesToWrite)
+        {
+            using (StreamWriter writer = new StreamWriter(fileName))
+            {
+                foreach (string line in linesToWrite)
+                {
+                    writer.WriteLine(line);
+                }
+            }
+        }
 
     }
 }
