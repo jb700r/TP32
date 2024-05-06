@@ -9,12 +9,12 @@ namespace TP3.media
 {
     public class Video : Media
     {
-        public void Play() { }
-        public void Stop() { }
+        public override void Play() { }
+        public override void Stop() { }
 
-        public Video(string title,int year) : base(title,year)
+        public Video(string title, int year) : base(title, year)
         {
-  
+
         }
     }
 }

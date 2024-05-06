@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using TP3;
 using TP3.comparer;
 using TP3.media;
 
@@ -105,11 +106,11 @@ namespace PROF.media
         // pour lire tous les fichiers et remplir la liste de médias disponibles.
         public void LoadMedias(String medialistName)
         {
-            /*
+
             medias = new List<Media>();
             currentMediaId = -1;
             String extension = GetFileExtension(medialistName);
-            List <string> lignes = ReadFile(medialistName);
+            List<string> lignes = ReadFile(medialistName);
 
 
             foreach (string ligne in lignes)
@@ -130,7 +131,7 @@ namespace PROF.media
                 }
 
             }
-            */
+            /**/
         }
 
         public Playlist GetPlaylist()

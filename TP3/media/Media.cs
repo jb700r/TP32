@@ -28,12 +28,14 @@ namespace TP3.media
         public int Year
         {
             get { return year; }
-            set { 
-                if(value < 0)
+            set
+            {
+                if (value < 0)
                 {
                     throw new ArgumentOutOfRangeException("L'année doit etre une valeur valide.");
                 }
-                year = value; }
+                year = value;
+            }
         }
         public WindowsMediaPlayer Player
         {
@@ -47,8 +49,8 @@ namespace TP3.media
             this.Year = year;
         }
 
-        public void Play() { }
-        public void Stop() { }
+        public abstract void Play();
+        public abstract void Stop();
 
         public override bool Equals(object obj)
         {
