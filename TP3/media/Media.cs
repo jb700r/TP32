@@ -16,12 +16,24 @@ namespace TP3.media
         public string Title
         {
             get { return title; }
-            set { title = value; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentNullException("Le titre doit etre remplit");
+                }
+                title = value;
+            }
         }
         public int Year
         {
             get { return year; }
-            set { year = value; }
+            set { 
+                if(value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("L'année doit etre une valeur valide.");
+                }
+                year = value; }
         }
         public WindowsMediaPlayer Player
         {
@@ -29,7 +41,7 @@ namespace TP3.media
             set { player = value; }
         }
 
-        public Media(string title,int year) 
+        public Media(string title, int year)
         {
             this.Title = title;
             this.Year = year;
@@ -40,7 +52,7 @@ namespace TP3.media
 
         public override bool Equals(object obj)
         {
-            if ( ((Media)obj).Title == this.Title && ((Media)obj).Year == this.Year)
+            if (((Media)obj).Title == this.Title && ((Media)obj).Year == this.Year)
             {
                 return true;
             }
