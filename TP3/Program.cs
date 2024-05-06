@@ -30,13 +30,20 @@ namespace TP3
 
 
 
+
             try
             {
-                Music music1 = new Music("bomboclat", 666);
+                Music music2 = new Music("fall-back.mp3", 666);
 
-                music1.Player.URL = "bomboclat.mp3";
-                music1.Play();
-                Thread.Sleep(1500);
+                music2.Player.URL = music2.Title;
+
+                music2.Play();
+
+                Console.WriteLine("Press any key to stop playback and exit...");
+                Console.ReadKey();
+
+                music2.Stop();
+
             }
             catch (Exception ex)
             {
