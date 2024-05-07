@@ -49,38 +49,104 @@ namespace TP3
             #endregion
 
 
+            //MediaPlayer mediaPlayer = new MediaPlayer();
+            //mediaPlayer.LoadMedias(SONGS_PLAYLIST_FILENAME);
+
+            //foreach (Media media in mediaPlayer.Medias)
+            //{
+            //    Console.WriteLine(media);
+            //}
+            //Console.WriteLine(mediaPlayer.Medias[1]);
+
+            //mediaPlayer.CurrentPlaylist.Medias.Add(mediaPlayer.Medias[0]);
+            //mediaPlayer.CurrentPlaylist.Medias.Add(mediaPlayer.Medias[1]);
+
+
+            //foreach (Media media in mediaPlayer.CurrentPlaylist.Medias)
+            //{
+            //    Console.WriteLine(media);
+            //}
+            //mediaPlayer.CurrentPlaylist.Medias[0].Player.URL = mediaPlayer.CurrentPlaylist.Medias[0].Title;
+
+            //Console.WriteLine(mediaPlayer.CurrentPlaylist.Medias[0].Player.URL);
+
+            //mediaPlayer.CurrentPlaylist.Medias[0].Player.settings.autoStart = false;
+
+            //mediaPlayer.CurrentPlaylist.Medias[0].Play();
+
+
+
+            //Main Menu
+
+
+            //DisplayMainMenuOption();
+
+            string[] options;
+            int userChoice;
             MediaPlayer mediaPlayer = new MediaPlayer();
-            mediaPlayer.LoadMedias(SONGS_PLAYLIST_FILENAME);
+            bool quitMain = false;
+            bool quitPlaylist = false;
+            bool quitPlay = false;
 
-            foreach (Media media in mediaPlayer.Medias)
+
+            do
             {
-                Console.WriteLine(media);
-            }
-            Console.WriteLine(mediaPlayer.Medias[1]);
+                userChoice = GetUserChoiceEnum(GetEnumStringValues<MainMenuOption>());
+                switch (userChoice)
+                {
+                    case (int)MainMenuOption.Quit:
+                        quitMain = true;
+                        break;
+                    case (int)MainMenuOption.LoadMusics:
+                        mediaPlayer.LoadMedias(SONGS_PLAYLIST_FILENAME);
+                        continue;
+                    case (int)MainMenuOption.LoadVideos:
+                        mediaPlayer.LoadMedias(VIDEOS_PLAYLIST_FILENAME);
+                        continue;
+                    case (int)MainMenuOption.ManagePlaylist:
+                        do
+                        {
+                            userChoice = GetUserChoiceEnum(GetEnumStringValues<PlaylistOption>());
+                            switch (userChoice)
+                            {
+                                case (int)PlaylistOption.Quit:
+                                    quitPlaylist = true;
+                                    break;
+                                case (int)PlaylistOption.PrintPlaylist:
+                                    continue;
+                                case (int)PlaylistOption.AddMediaToPlaylist:
+                                    continue;
+                                case (int)PlaylistOption.RemoveMediaFromPlaylist:
+                                    continue;
+                                case (int)PlaylistOption.SortPlaylistByTitleAsc:
+                                    continue;
+                                case (int)PlaylistOption.SortPlaylistByTitleDesc:
+                                    continue;
+                                case (int)PlaylistOption.StartPlaylist:
+                                    do
+                                    {
+                                        userChoice = GetUserChoiceEnum(GetEnumStringValues<PlayOption>());
+                                        switch (userChoice)
+                                        {
+                                            case (int)PlayOption.Quit:
+                                                quitPlay = true;
+                                                break;
+                                            case (int)PlayOption.PlayNext:
+                                                continue;
+                                            case (int)PlayOption.PlayPrevious:
+                                                continue;
+                                            case (int)PlayOption.Stop:
+                                                continue;
+                                        }
+                                    } while (!quitPlay);
+                                    continue;
+                            }
+                        } while (!quitPlaylist);
 
-            mediaPlayer.CurrentPlaylist.Medias.Add(mediaPlayer.Medias[0]);
-            mediaPlayer.CurrentPlaylist.Medias.Add(mediaPlayer.Medias[1]);
 
-
-            foreach (Media media in mediaPlayer.CurrentPlaylist.Medias)
-            {
-                Console.WriteLine(media);
-            }
-            mediaPlayer.CurrentPlaylist.Medias[0].Player.URL = mediaPlayer.CurrentPlaylist.Medias[0].Title;
-
-            Console.WriteLine(mediaPlayer.CurrentPlaylist.Medias[0].Player.URL);
-
-            mediaPlayer.CurrentPlaylist.Medias[0].Player.settings.autoStart = false;
-
-            mediaPlayer.CurrentPlaylist.Medias[0].Play();
-
-
-
-
-
-
-            DisplayMainMenuOption();
-
+                        continue;
+                }
+            } while (!quitMain);
 
         }
 
@@ -99,6 +165,28 @@ namespace TP3
             return Enum.GetNames(typeof(TEnum));
         }
         public static int GetUserChoice(string[] options)
+        {
+            bool success = false;
+            int choice = -1;
+
+            do
+            {
+                Console.Clear();
+                for (int i = 0; i < options.Length; i++)
+                {
+                    Console.WriteLine($"({i}) {options[i]}");
+                }
+
+                Console.Write("Enter choice : ");
+                success = int.TryParse(Console.ReadLine(), out choice);
+                if (choice < 0 || choice > options.Length - 1)
+                {
+                    success = false;
+                }
+            } while (!success);
+            return choice;
+        }
+        public static int GetUserChoiceEnum(string[] options)
         {
             int currentSelection = 0;
 
@@ -165,7 +253,7 @@ namespace TP3
         public static void DisplayMenuPlayOption()
         {
             string[] optionsEnum = GetEnumStringValues<PlayOption>();
-            int userchoice = GetUserChoice(optionsEnum);
+            int userchoice = GetUserChoiceEnum(optionsEnum);
             switch (userchoice)
             {
                 case (int)PlayOption.Quit:
@@ -182,7 +270,7 @@ namespace TP3
         public static void DisplayMenuPlaylistOption()
         {
             string[] optionsEnum = GetEnumStringValues<PlaylistOption>();
-            int userchoice = GetUserChoice(optionsEnum);
+            int userchoice = GetUserChoiceEnum(optionsEnum);
             switch (userchoice)
             {
                 case (int)PlaylistOption.Quit:
@@ -209,7 +297,7 @@ namespace TP3
         public static void DisplayMainMenuOption()
         {
             string[] optionsEnum = GetEnumStringValues<MainMenuOption>();
-            int userchoice = GetUserChoice(optionsEnum);
+            int userchoice = GetUserChoiceEnum(optionsEnum);
             switch (userchoice)
             {
                 case (int)MainMenuOption.Quit:
@@ -240,7 +328,7 @@ namespace TP3
 
             string[] optionsEnum = GetEnumStringValues<Quit>();
             Console.Title = "QUIT???";
-            int userchoice = GetUserChoice(optionsEnum);
+            int userchoice = GetUserChoiceEnum(optionsEnum);
 
             switch (userchoice)
             {
