@@ -26,7 +26,7 @@ namespace TP3
             #region testMusic.mp3
             //try
             //{
-            //    Music music2 = new Music("fall-back.mp3", 666);
+            //    Music music2 = new Music("bomboclat.mp3", 666);
 
             //    music2.Player.settings.autoStart = false;
             //    music2.Player.URL = music2.Title;
@@ -48,7 +48,32 @@ namespace TP3
             //}
             #endregion
 
+
             MediaPlayer mediaPlayer = new MediaPlayer();
+            mediaPlayer.LoadMedias(SONGS_PLAYLIST_FILENAME);
+
+            foreach (Media media in mediaPlayer.Medias)
+            {
+                Console.WriteLine(media);
+            }
+            Console.WriteLine(mediaPlayer.Medias[1]);
+
+            mediaPlayer.CurrentPlaylist.Medias.Add(mediaPlayer.Medias[0]);
+            mediaPlayer.CurrentPlaylist.Medias.Add(mediaPlayer.Medias[1]);
+
+
+            foreach (Media media in mediaPlayer.CurrentPlaylist.Medias)
+            {
+                Console.WriteLine(media);
+            }
+            mediaPlayer.CurrentPlaylist.Medias[0].Player.URL = mediaPlayer.CurrentPlaylist.Medias[0].Title;
+
+            Console.WriteLine(mediaPlayer.CurrentPlaylist.Medias[0].Player.URL);
+
+            mediaPlayer.CurrentPlaylist.Medias[0].Player.settings.autoStart = false;
+
+            mediaPlayer.CurrentPlaylist.Medias[0].Play();
+
 
 
 
@@ -56,8 +81,6 @@ namespace TP3
 
             DisplayMainMenuOption();
 
-            //Only create one media player
-            //all method sould be inside media player
 
         }
 
@@ -195,9 +218,15 @@ namespace TP3
 
                 case (int)MainMenuOption.LoadMusics:
 
+                    DisplayMainMenuOption();
+
                     break;
 
                 case (int)MainMenuOption.LoadVideos:
+
+                    DisplayMainMenuOption();
+
+
                     break;
 
                 case (int)MainMenuOption.ManagePlaylist:
@@ -208,8 +237,9 @@ namespace TP3
         public static void GetQuitConfimation()
         {
             Console.Clear();
-            Console.WriteLine("Are you sure you want to quit the program?");
+
             string[] optionsEnum = GetEnumStringValues<Quit>();
+            Console.Title = "QUIT???";
             int userchoice = GetUserChoice(optionsEnum);
 
             switch (userchoice)

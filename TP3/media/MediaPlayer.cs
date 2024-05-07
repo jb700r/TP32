@@ -50,6 +50,7 @@ namespace PROF.media
         public MediaPlayer()
         {
             medias = new List<Media>();
+            CurrentPlaylist = new Playlist();
         }
 
         public void PlayNext()

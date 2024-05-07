@@ -44,20 +44,14 @@ namespace TP3.media
                 {
                     throw new ArgumentNullException("La liste des médias ne peut pas être nulle.");
                 }
-                if (value.Count == 0)
-                {
-                    throw new ArgumentException("La liste des médias doit contenir au moins un élément.");
-                }
-
                 medias = value;
             }
         }
 
-        public Playlist(int currentMediaId, IMediaComparer mediaComparer, List<Media> medias)
+        public Playlist()
         {
-            this.CurrentMediaId = currentMediaId;
-            this.MediaComparer = mediaComparer;
-            this.Medias = medias;
+            this.CurrentMediaId = 0;
+            this.Medias = new List<Media>();
         }
 
         public void Sort(IMediaComparer comparer)
