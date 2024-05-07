@@ -93,7 +93,7 @@ namespace TP3.media
         {
             if (newMedia == null)
             {
-                throw new ArgumentNullException(nameof(newMedia), "Le média à ajouter ne peut pas être nul.");
+                throw new ArgumentNullException("Le média à ajouter ne peut pas être nul.");
             }
 
             Medias.Add(newMedia);
