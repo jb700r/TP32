@@ -9,6 +9,8 @@ using PROF.media;
 
 using System.Threading;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
+using System;
 
 namespace TP3
 {
@@ -21,38 +23,178 @@ namespace TP3
 
         public static void Main(string[] args)
         {
-            //Console.WriteLine("Your options are: ");
-            //foreach (MainMenuOption option in Enum.GetValues(typeof(MainMenuOption)))
+            #region testMusic.mp3
+            //try
             //{
-            //    Console.WriteLine(option);
+            //    Music music2 = new Music("fall-back.mp3", 666);
+
+            //    music2.Player.settings.autoStart = false;
+            //    music2.Player.URL = music2.Title;
+
+            //    Console.WriteLine($"Press any key to start playing {music2.Title} ...");
+            //    Console.ReadKey();
+
+            //    music2.Play();
+
+            //    Console.WriteLine("Press any key to stop playback and exit...");
+            //    Console.ReadKey();
+
+            //    music2.Stop();
+
             //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine("Une erreur s'est produite : " + ex.Message);
+            //}
+            #endregion
 
+            DisplayMainMenuOption();
 
-
-
-
-            try
-            {
-                Music music2 = new Music("fall-back.mp3", 666);
-
-                music2.Player.URL = music2.Title;
-
-                music2.Play();
-
-                Console.WriteLine("Press any key to stop playback and exit...");
-                Console.ReadKey();
-
-                music2.Stop();
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Une erreur s'est produite : " + ex.Message);
-            }
-
-
+            //Only create one media player
+            //all method sould be inside media player
 
         }
-    }
 
+
+
+
+
+
+        //Only if we have extra time
+        public static string[] GetEnumStringValues<TEnum>() where TEnum : Enum
+        {
+            return Enum.GetNames(typeof(TEnum));
+        }
+        public static int GetUserChoice(string[] options)
+        {
+            int currentSelection = 0;
+
+            ConsoleKey key;
+            Console.CursorVisible = false;
+            do
+            {
+                Console.Clear();
+
+                for (int i = 0; i < options.Count(); i++)
+                {
+
+                    if (i == currentSelection)
+                        Console.ForegroundColor = ConsoleColor.Red;
+
+                    Console.WriteLine(options[i]);
+
+                    Console.ResetColor();
+                }
+
+                key = Console.ReadKey(true).Key;
+
+                switch (key)
+                {
+
+
+                    case ConsoleKey.UpArrow:
+                        {
+                            if (currentSelection - 1 < 0)
+                            {
+                                currentSelection = options.Count() - 1;
+                            }
+                            else
+                            {
+                                currentSelection--;
+                            }
+
+                            break;
+                        }
+                    case ConsoleKey.DownArrow:
+                        {
+                            if (currentSelection + 1 > options.Count() - 1)
+                            {
+                                currentSelection = 0;
+                            }
+                            else
+                            {
+                                currentSelection++;
+                            }
+
+                            break;
+                        }
+                    case ConsoleKey.Escape:
+                        {
+                            break;
+
+                        }
+                }
+            } while (key != ConsoleKey.Enter);
+            Console.CursorVisible = true;
+            return currentSelection;
+        }
+
+        public static void DisplayMenuPlayOption()
+        {
+            string[] optionsEnum = GetEnumStringValues<PlayOption>();
+            int userchoice = GetUserChoice(optionsEnum);
+            switch (userchoice)
+            {
+                case (int)PlayOption.Quit:
+                    break;
+                case (int)PlayOption.PlayNext:
+                    break;
+                case (int)PlayOption.PlayPrevious:
+                    break;
+                case (int)PlayOption.Stop:
+                    break;
+            }
+        }
+        public static void DisplayMenuPlaylistOption()
+        {
+            string[] optionsEnum = GetEnumStringValues<PlaylistOption>();
+            int userchoice = GetUserChoice(optionsEnum);
+            switch (userchoice)
+            {
+                case (int)PlaylistOption.Quit:
+                    break;
+                case (int)PlaylistOption.PrintPlaylist:
+                    break;
+                case (int)PlaylistOption.AddMediaToPlaylist:
+                    break;
+                case (int)PlaylistOption.RemoveMediaFromPlaylist:
+                    break;
+                case (int)PlaylistOption.SortPlaylistByTitleAsc:
+                    break;
+                case (int)PlaylistOption.SortPlaylistByTitleDesc:
+                    break;
+                case (int)PlaylistOption.StartPlaylist:
+                    DisplayMenuPlayOption();
+                    break;
+
+            }
+
+        }
+        public static void DisplayMainMenuOption()
+        {
+            string[] optionsEnum = GetEnumStringValues<MainMenuOption>();
+            int userchoice = GetUserChoice(optionsEnum);
+            do
+            {
+                switch (userchoice)
+                {
+                    case (int)MainMenuOption.Quit:
+                        break;
+
+
+                    case (int)MainMenuOption.LoadMusics:
+
+                        break;
+
+                    case (int)MainMenuOption.LoadVideos:
+                        break;
+
+                    case (int)MainMenuOption.ManagePlaylist:
+                        DisplayMenuPlaylistOption();
+                        break;
+                }
+                break;
+            } while (true);
+        }
+    }
 }
