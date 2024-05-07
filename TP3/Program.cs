@@ -48,12 +48,22 @@ namespace TP3
             //}
             #endregion
 
+            MediaPlayer mediaPlayer = new MediaPlayer();
+
+
+
+
+
             DisplayMainMenuOption();
 
             //Only create one media player
             //all method sould be inside media player
 
         }
+
+
+
+
 
 
 
@@ -136,6 +146,7 @@ namespace TP3
             switch (userchoice)
             {
                 case (int)PlayOption.Quit:
+                    DisplayMenuPlaylistOption();
                     break;
                 case (int)PlayOption.PlayNext:
                     break;
@@ -152,7 +163,9 @@ namespace TP3
             switch (userchoice)
             {
                 case (int)PlaylistOption.Quit:
+                    DisplayMainMenuOption();
                     break;
+
                 case (int)PlaylistOption.PrintPlaylist:
                     break;
                 case (int)PlaylistOption.AddMediaToPlaylist:
@@ -174,27 +187,41 @@ namespace TP3
         {
             string[] optionsEnum = GetEnumStringValues<MainMenuOption>();
             int userchoice = GetUserChoice(optionsEnum);
-            do
+            switch (userchoice)
             {
-                switch (userchoice)
-                {
-                    case (int)MainMenuOption.Quit:
-                        break;
+                case (int)MainMenuOption.Quit:
+                    GetQuitConfimation();
+                    break;
+
+                case (int)MainMenuOption.LoadMusics:
+
+                    break;
+
+                case (int)MainMenuOption.LoadVideos:
+                    break;
+
+                case (int)MainMenuOption.ManagePlaylist:
+                    DisplayMenuPlaylistOption();
+                    break;
+            }
+        }
+        public static void GetQuitConfimation()
+        {
+            Console.Clear();
+            Console.WriteLine("Are you sure you want to quit the program?");
+            string[] optionsEnum = GetEnumStringValues<Quit>();
+            int userchoice = GetUserChoice(optionsEnum);
+
+            switch (userchoice)
+            {
+                case (int)Quit.Yes:
+                    break;
+                case (int)Quit.No:
+                    DisplayMainMenuOption();
+                    break;
+            }
 
 
-                    case (int)MainMenuOption.LoadMusics:
-
-                        break;
-
-                    case (int)MainMenuOption.LoadVideos:
-                        break;
-
-                    case (int)MainMenuOption.ManagePlaylist:
-                        DisplayMenuPlaylistOption();
-                        break;
-                }
-                break;
-            } while (true);
         }
     }
 }
