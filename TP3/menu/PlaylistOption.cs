@@ -14,6 +14,8 @@ namespace TP3.menu
         RemoveMediaFromPlaylist,
         SortPlaylistByTitleAsc,
         SortPlaylistByTitleDesc,
+        SortPlaylistByYearAsc,
+        SortPlaylistByYearDesc,
         StartPlaylist
     }
 }

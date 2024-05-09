@@ -9,7 +9,7 @@ namespace TP3.comparer
 {
     public class NoSortComparer : IMediaComparer
     {
-        public int Compare(Media media1, Media media2)
+        public int Compare(Media lsh, Media rhs)
         {
             return 0;
         }

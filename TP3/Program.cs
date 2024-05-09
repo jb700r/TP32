@@ -88,8 +88,11 @@ namespace TP3
             bool quitPlaylist = false;
             bool quitPlay = false;
             int currentMediaId = 0;
-            IMediaComparer comparer = new YearAscComparer();
-           
+            YearAscComparer yearAscComparer = new();
+            YearDescComparer yearDescComparer = new();
+            TitleAscComparer titleAscComparer = new();
+            TitleDescComparer titleDescComparer = new();
+
             do
 
             {
@@ -130,10 +133,19 @@ namespace TP3
                                 case (int)PlaylistOption.RemoveMediaFromPlaylist:
                                     continue;
                                 case (int)PlaylistOption.SortPlaylistByTitleAsc:
-                                    mediaPlayer.CurrentPlaylist.Sort(comparer);
+                                    mediaPlayer.CurrentPlaylist.Sort(titleAscComparer);
+                                    
                                     continue;
                                 case (int)PlaylistOption.SortPlaylistByTitleDesc:
+                                    mediaPlayer.CurrentPlaylist.Sort(titleDescComparer);
                                     continue;
+                                case (int)PlaylistOption.SortPlaylistByYearAsc:
+                                    mediaPlayer.CurrentPlaylist.Sort(yearAscComparer);
+                                    continue;
+                                case (int)PlaylistOption.SortPlaylistByYearDesc:
+                                    mediaPlayer.CurrentPlaylist.Sort(yearDescComparer);
+                                    continue;
+                               
                                 case (int)PlaylistOption.StartPlaylist:
                                     mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Player.URL = mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Title;
                                     mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Play();

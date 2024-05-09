@@ -50,6 +50,7 @@ namespace TP3.media
 
         public Playlist()
         {
+            this.mediaComparer = new NoSortComparer();
             this.CurrentMediaId = 0;
             this.Medias = new List<Media>();
         }
@@ -66,6 +67,7 @@ namespace TP3.media
             {
                 throw new InvalidOperationException("Le comparateur de médias n'a pas été défini.");
             }
+            this.mediaComparer = comparer;
         }
 
 
@@ -102,6 +104,7 @@ namespace TP3.media
             }
 
             Medias.Add(newMedia);
+            Sort(this.MediaComparer);
         }
 
         public List<Media> FilterUnusedMedias(List<Media> allMedias)
