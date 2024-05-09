@@ -135,25 +135,25 @@ namespace TP3.media
 
         public void PlayNext()
         {
-            if (currentMediaId < Medias.Count - 1)
+            if (currentMediaId == Medias.Count - 1)
             {
-                currentMediaId++;
+                currentMediaId = 0;
             }
             else
             {
-                currentMediaId = 0;
+                currentMediaId++;
             }
         }
 
         public void PlayPrevious()
         {
-            if (currentMediaId > 0)
+            if (currentMediaId == 0)
             {
-                currentMediaId--;
+                currentMediaId = Medias.Count - 1;
             }
             else
             {
-                currentMediaId = Medias.Count - 1;
+                currentMediaId--;
             }
         }
 

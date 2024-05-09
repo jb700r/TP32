@@ -117,7 +117,7 @@ namespace TP3
                                 case (int)PlaylistOption.AddMediaToPlaylist:
                                     mediaPlayer.CurrentPlaylist.AddMedia(mediaPlayer.Medias[0]);
                                     mediaPlayer.CurrentPlaylist.AddMedia(mediaPlayer.Medias[1]);
-                                    Console.WriteLine(mediaPlayer.CurrentPlaylist.ToString());  
+                                    Console.WriteLine(mediaPlayer.CurrentPlaylist.ToString());
                                     Console.ReadKey();
                                     continue;
                                 case (int)PlaylistOption.RemoveMediaFromPlaylist:
@@ -127,21 +127,32 @@ namespace TP3
                                 case (int)PlaylistOption.SortPlaylistByTitleDesc:
                                     continue;
                                 case (int)PlaylistOption.StartPlaylist:
-                                    mediaPlayer.CurrentPlaylist.Medias[0].Player.URL = mediaPlayer.CurrentPlaylist.Medias[0].Title;
-                                    mediaPlayer.CurrentPlaylist.Medias[0].Play();
+                                    mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Player.URL = mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Title;
+                                    mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Play();
                                     do
                                     {
+
                                         userChoice = GetUserChoiceEnum(GetEnumStringValues<PlayOption>());
                                         switch (userChoice)
                                         {
                                             case (int)PlayOption.Quit:
+                                                mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Stop();
                                                 quitPlay = true;
                                                 break;
                                             case (int)PlayOption.PlayNext:
+                                                mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Stop();
+                                                mediaPlayer.CurrentPlaylist.PlayNext();
+                                                mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Player.URL = mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Title;
+                                                mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Play();
                                                 continue;
                                             case (int)PlayOption.PlayPrevious:
+                                                mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Stop();
+                                                mediaPlayer.CurrentPlaylist.PlayPrevious();
+                                                mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Player.URL = mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Title;
+                                                mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Play();
                                                 continue;
                                             case (int)PlayOption.Stop:
+                                                mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Stop();
                                                 continue;
                                         }
                                     } while (!quitPlay);
@@ -347,6 +358,6 @@ namespace TP3
 
 
         }
-        
+
     }
 }
