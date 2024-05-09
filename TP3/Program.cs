@@ -115,6 +115,10 @@ namespace TP3
                                 case (int)PlaylistOption.PrintPlaylist:
                                     continue;
                                 case (int)PlaylistOption.AddMediaToPlaylist:
+                                    mediaPlayer.CurrentPlaylist.AddMedia(mediaPlayer.Medias[0]);
+                                    mediaPlayer.CurrentPlaylist.AddMedia(mediaPlayer.Medias[1]);
+                                    Console.WriteLine(mediaPlayer.CurrentPlaylist.ToString());  
+                                    Console.ReadKey();
                                     continue;
                                 case (int)PlaylistOption.RemoveMediaFromPlaylist:
                                     continue;
@@ -123,6 +127,8 @@ namespace TP3
                                 case (int)PlaylistOption.SortPlaylistByTitleDesc:
                                     continue;
                                 case (int)PlaylistOption.StartPlaylist:
+                                    mediaPlayer.CurrentPlaylist.Medias[0].Player.URL = mediaPlayer.CurrentPlaylist.Medias[0].Title;
+                                    mediaPlayer.CurrentPlaylist.Medias[0].Play();
                                     do
                                     {
                                         userChoice = GetUserChoiceEnum(GetEnumStringValues<PlayOption>());
@@ -341,5 +347,6 @@ namespace TP3
 
 
         }
+        
     }
 }

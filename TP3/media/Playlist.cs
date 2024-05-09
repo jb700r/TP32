@@ -80,6 +80,15 @@ namespace TP3.media
 
         public override string ToString()
         {
+            string data = String.Format("{0,-4}{1,-15}{2,-5}", "###", "Titles", "Years");
+
+            foreach(Media media in medias)
+            {
+                Console.WriteLine(media.Title);
+            }
+
+
+
             return $"Playlist: {Medias.Count} médias";
         }
 
