@@ -87,10 +87,13 @@ namespace TP3
             bool quitMain = false;
             bool quitPlaylist = false;
             bool quitPlay = false;
-
-
+            int currentMediaId = 0;
+            IMediaComparer comparer = new YearAscComparer();
+           
             do
+
             {
+                quitMain = false;
                 userChoice = GetUserChoiceEnum(GetEnumStringValues<MainMenuOption>());
                 switch (userChoice)
                 {
@@ -106,6 +109,7 @@ namespace TP3
                     case (int)MainMenuOption.ManagePlaylist:
                         do
                         {
+                            quitPlaylist = false;
                             userChoice = GetUserChoiceEnum(GetEnumStringValues<PlaylistOption>());
                             switch (userChoice)
                             {
@@ -113,46 +117,52 @@ namespace TP3
                                     quitPlaylist = true;
                                     break;
                                 case (int)PlaylistOption.PrintPlaylist:
+                                    Console.WriteLine(mediaPlayer.CurrentPlaylist.ToString());
+                                    Console.WriteLine("Press any key to continue.");
+                                    Console.ReadKey();
                                     continue;
                                 case (int)PlaylistOption.AddMediaToPlaylist:
                                     mediaPlayer.CurrentPlaylist.AddMedia(mediaPlayer.Medias[0]);
                                     mediaPlayer.CurrentPlaylist.AddMedia(mediaPlayer.Medias[1]);
-                                    Console.WriteLine(mediaPlayer.CurrentPlaylist.ToString());
-                                    Console.ReadKey();
+                                    mediaPlayer.CurrentPlaylist.AddMedia(mediaPlayer.Medias[2]);
+                                    mediaPlayer.CurrentPlaylist.AddMedia(mediaPlayer.Medias[3]);
                                     continue;
                                 case (int)PlaylistOption.RemoveMediaFromPlaylist:
                                     continue;
                                 case (int)PlaylistOption.SortPlaylistByTitleAsc:
+                                    mediaPlayer.CurrentPlaylist.Sort(comparer);
                                     continue;
                                 case (int)PlaylistOption.SortPlaylistByTitleDesc:
                                     continue;
                                 case (int)PlaylistOption.StartPlaylist:
-                                    mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Player.URL = mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Title;
-                                    mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Play();
+                                    mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Player.URL = mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Title;
+                                    mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Play();
                                     do
                                     {
-
+                                        quitPlay = false;
                                         userChoice = GetUserChoiceEnum(GetEnumStringValues<PlayOption>());
                                         switch (userChoice)
                                         {
                                             case (int)PlayOption.Quit:
-                                                mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Stop();
+                                                mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Stop();
                                                 quitPlay = true;
                                                 break;
                                             case (int)PlayOption.PlayNext:
-                                                mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Stop();
+                                                mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Stop();
                                                 mediaPlayer.CurrentPlaylist.PlayNext();
-                                                mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Player.URL = mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Title;
-                                                mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Play();
+                                                currentMediaId = mediaPlayer.CurrentPlaylist.CurrentMediaId;
+                                                mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Player.URL = mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Title;
+                                                mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Play();
                                                 continue;
                                             case (int)PlayOption.PlayPrevious:
-                                                mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Stop();
+                                                mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Stop();
                                                 mediaPlayer.CurrentPlaylist.PlayPrevious();
-                                                mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Player.URL = mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Title;
-                                                mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Play();
+                                                currentMediaId = mediaPlayer.CurrentPlaylist.CurrentMediaId;
+                                                mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Player.URL = mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Title;
+                                                mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Play();
                                                 continue;
                                             case (int)PlayOption.Stop:
-                                                mediaPlayer.CurrentPlaylist.Medias[mediaPlayer.CurrentPlaylist.CurrentMediaId].Stop();
+                                                mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Stop();
                                                 continue;
                                         }
                                     } while (!quitPlay);
@@ -357,6 +367,14 @@ namespace TP3
             }
 
 
+        }
+        public static void AddMediaToPlaylist(MediaPlayer mediaPlayer)
+        {
+
+        }
+        public static void RemoveMediaFromPlaylist() 
+        {
+        
         }
 
     }

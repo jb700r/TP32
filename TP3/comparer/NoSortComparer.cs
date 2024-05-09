@@ -11,16 +11,16 @@ namespace TP3.comparer
     {
         public int Compare(Media media1, Media media2)
         {
-            //CompareTo()
+            
             if (media1 == null || media2 == null)
             {
                 throw new ArgumentNullException("Aucune Playlist triée.");
             }
-            else if (media1.Year > media2.Year)
+            else if (media1.Year < media2.Year)
             {
                 return -1;
             }
-            else if (media1.Year < media2.Year)
+            else if (media1.Year > media2.Year)
             {
                 return 1;
             }
