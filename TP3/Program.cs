@@ -125,16 +125,34 @@ namespace TP3
                                     Console.ReadKey();
                                     continue;
                                 case (int)PlaylistOption.AddMediaToPlaylist:
+
+                                    //mediaPlayer.CurrentPlaylist.AddMedia(mediaPlayer.Medias[1]);
+                                    //mediaPlayer.CurrentPlaylist.AddMedia(mediaPlayer.Medias[2]);
+                                    //mediaPlayer.CurrentPlaylist.AddMedia(mediaPlayer.Medias[3]);
+
+                                    List<Media> unusedMedia = mediaPlayer.CurrentPlaylist.FilterUnusedMedias(mediaPlayer.Medias);
+                                    //do
+                                    //{
+
+                                    //}while(unusedMedia.Count == 0 || userChoice = 0);
+                                    foreach (Media media in unusedMedia)
+                                    {
+                                        Console.WriteLine(media);
+                                    }
                                     mediaPlayer.CurrentPlaylist.AddMedia(mediaPlayer.Medias[0]);
-                                    mediaPlayer.CurrentPlaylist.AddMedia(mediaPlayer.Medias[1]);
-                                    mediaPlayer.CurrentPlaylist.AddMedia(mediaPlayer.Medias[2]);
-                                    mediaPlayer.CurrentPlaylist.AddMedia(mediaPlayer.Medias[3]);
+                                    unusedMedia = mediaPlayer.CurrentPlaylist.FilterUnusedMedias(mediaPlayer.Medias);
+                                    foreach (Media media in unusedMedia)
+                                    {
+                                        Console.WriteLine(media);
+                                    }
+                                    Console.ReadKey();
+
                                     continue;
                                 case (int)PlaylistOption.RemoveMediaFromPlaylist:
                                     continue;
                                 case (int)PlaylistOption.SortPlaylistByTitleAsc:
                                     mediaPlayer.CurrentPlaylist.Sort(titleAscComparer);
-                                    
+
                                     continue;
                                 case (int)PlaylistOption.SortPlaylistByTitleDesc:
                                     mediaPlayer.CurrentPlaylist.Sort(titleDescComparer);
@@ -145,7 +163,7 @@ namespace TP3
                                 case (int)PlaylistOption.SortPlaylistByYearDesc:
                                     mediaPlayer.CurrentPlaylist.Sort(yearDescComparer);
                                     continue;
-                               
+
                                 case (int)PlaylistOption.StartPlaylist:
                                     mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Player.URL = mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Title;
                                     mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Play();
@@ -384,9 +402,9 @@ namespace TP3
         {
 
         }
-        public static void RemoveMediaFromPlaylist() 
+        public static void RemoveMediaFromPlaylist()
         {
-        
+
         }
 
     }
