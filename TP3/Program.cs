@@ -80,7 +80,7 @@ namespace TP3
 
 
             //DisplayMainMenuOption();
-
+            const int QUIT = 0;
             string[] options;
             int userChoice;
             MediaPlayer mediaPlayer = new MediaPlayer();
@@ -126,29 +126,95 @@ namespace TP3
                                     continue;
                                 case (int)PlaylistOption.AddMediaToPlaylist:
 
-                                    //mediaPlayer.CurrentPlaylist.AddMedia(mediaPlayer.Medias[1]);
-                                    //mediaPlayer.CurrentPlaylist.AddMedia(mediaPlayer.Medias[2]);
-                                    //mediaPlayer.CurrentPlaylist.AddMedia(mediaPlayer.Medias[3]);
-
+                                    Console.Clear();
+                                    userChoice = 0;
+                                    bool success = false;
                                     List<Media> unusedMedia = mediaPlayer.CurrentPlaylist.FilterUnusedMedias(mediaPlayer.Medias);
-                                    //do
-                                    //{
 
-                                    //}while(unusedMedia.Count == 0 || userChoice = 0);
-                                    foreach (Media media in unusedMedia)
+                                    Console.Clear();
+                                    success = false;
+
+
+                                    do
                                     {
-                                        Console.WriteLine(media);
-                                    }
-                                    mediaPlayer.CurrentPlaylist.AddMedia(mediaPlayer.Medias[0]);
-                                    unusedMedia = mediaPlayer.CurrentPlaylist.FilterUnusedMedias(mediaPlayer.Medias);
-                                    foreach (Media media in unusedMedia)
-                                    {
-                                        Console.WriteLine(media);
-                                    }
+                                        int i = 1;
+                                        Console.Clear();
+                                        Console.WriteLine("ADD TO PLAYLIST \n\n");
+                                        unusedMedia = mediaPlayer.CurrentPlaylist.FilterUnusedMedias(mediaPlayer.Medias);
+                                        if (unusedMedia.Count() == 0)
+                                        {
+                                            Console.WriteLine("All media have been added to playlist. Press any key to continue...");
+                                            break;
+                                        }
+                                        Console.WriteLine("Available media :");
+                                        foreach (Media unusedMediaItem in unusedMedia)
+                                        {
+                                            Console.WriteLine($"({i}) : {unusedMediaItem.ToString()}");
+                                            i++;
+                                        }
+                                        Console.WriteLine(mediaPlayer.CurrentPlaylist.ToString() + "\n");
+
+                                        Console.Write("Enter choice (0) to quit : ");
+                                        success = int.TryParse(Console.ReadLine(), out userChoice);
+                                        if (userChoice == 0)
+                                        {
+                                            Console.WriteLine("Quitting, Press any key to continue...");
+                                            Console.ReadKey();
+                                            break;
+                                        }
+                                        if (userChoice > 0 && userChoice <= unusedMedia.Count())
+                                        {
+                                            mediaPlayer.CurrentPlaylist.AddMedia(unusedMedia[userChoice - 1]);
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Wrong input, Press any key to continue...");
+                                            Console.ReadKey();
+                                        }
+
+                                    } while (true);
+
                                     Console.ReadKey();
 
                                     continue;
                                 case (int)PlaylistOption.RemoveMediaFromPlaylist:
+
+                                    Console.Clear();
+                                    do
+                                    {
+                                        int i = 1;
+                                        Console.Clear();
+                                        Console.WriteLine("REMOVE FROM PLAYLIST \n\n");
+                                        if (mediaPlayer.CurrentPlaylist.Medias.Count() == 0)
+                                        {
+                                            Console.WriteLine("All media have been removed from the playlist. Press any key to continue...");
+                                            break;
+                                        }
+                                        Console.WriteLine(mediaPlayer.CurrentPlaylist.ToString() + "\n");
+
+
+
+                                        Console.Write("Enter choice (0) to quit : ");
+                                        success = int.TryParse(Console.ReadLine(), out userChoice);
+                                        if (userChoice == 0)
+                                        {
+                                            Console.WriteLine("Quitting, Press any key to continue...");
+                                            Console.ReadKey();
+                                            break;
+                                        }
+                                        if (userChoice > 0 && userChoice <= mediaPlayer.CurrentPlaylist.Medias.Count())
+                                        {
+                                            mediaPlayer.CurrentPlaylist.RemoveMedia(userChoice - 1);
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Wrong input, Press any key to continue...");
+                                            Console.ReadKey();
+                                        }
+
+                                    } while (true);
+
+                                    Console.ReadKey();
                                     continue;
                                 case (int)PlaylistOption.SortPlaylistByTitleAsc:
                                     mediaPlayer.CurrentPlaylist.Sort(titleAscComparer);

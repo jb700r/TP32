@@ -83,14 +83,14 @@ namespace TP3.media
         public override string ToString()
         {
             string data = "Playlist content:\n\n";
-            data += String.Format("{0,-4}{1,-15}{2,-5}", "###", "Titles", "Years");
+            data += String.Format("{0,-4}{1,-26}{2,-5}", "###", "Titles", "Years");
             data += "\n";
-            data += String.Format("{0,-4}{1,-15}{2,-5}", "===", "==============", "=====");
+            data += String.Format("{0,-4}{1,-26}{2,-5}", "===", "========================", "=====");
             foreach (Media media in medias)
             {
                 data += "\n";
-                data += String.Format("{0,-4}{1,-15}{2,-5}",medias.IndexOf(media), media.Title,media.Year);
-                
+                data += String.Format("{0,-4}{1,-26}{2,-5}", medias.IndexOf(media) + 1, media.Title, media.Year);
+
             }
             data += "\n\n";
             return data;
