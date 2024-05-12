@@ -23,63 +23,6 @@ namespace TP3
 
         public static void Main(string[] args)
         {
-            #region testMusic.mp3
-            //try
-            //{
-            //    Music music2 = new Music("bomboclat.mp3", 666);
-
-            //    music2.Player.settings.autoStart = false;
-            //    music2.Player.URL = music2.Title;
-
-            //    Console.WriteLine($"Press any key to start playing {music2.Title} ...");
-            //    Console.ReadKey();
-
-            //    music2.Play();
-
-            //    Console.WriteLine("Press any key to stop playback and exit...");
-            //    Console.ReadKey();
-
-            //    music2.Stop();
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine("Une erreur s'est produite : " + ex.Message);
-            //}
-            #endregion
-
-
-            //MediaPlayer mediaPlayer = new MediaPlayer();
-            //mediaPlayer.LoadMedias(SONGS_PLAYLIST_FILENAME);
-
-            //foreach (Media media in mediaPlayer.Medias)
-            //{
-            //    Console.WriteLine(media);
-            //}
-            //Console.WriteLine(mediaPlayer.Medias[1]);
-
-            //mediaPlayer.CurrentPlaylist.Medias.Add(mediaPlayer.Medias[0]);
-            //mediaPlayer.CurrentPlaylist.Medias.Add(mediaPlayer.Medias[1]);
-
-
-            //foreach (Media media in mediaPlayer.CurrentPlaylist.Medias)
-            //{
-            //    Console.WriteLine(media);
-            //}
-            //mediaPlayer.CurrentPlaylist.Medias[0].Player.URL = mediaPlayer.CurrentPlaylist.Medias[0].Title;
-
-            //Console.WriteLine(mediaPlayer.CurrentPlaylist.Medias[0].Player.URL);
-
-            //mediaPlayer.CurrentPlaylist.Medias[0].Player.settings.autoStart = false;
-
-            //mediaPlayer.CurrentPlaylist.Medias[0].Play();
-
-
-
-            //Main Menu
-
-
-            //DisplayMainMenuOption();
             const int QUIT = 0;
             string[] options;
             int userChoice;
@@ -120,6 +63,7 @@ namespace TP3
                                     quitPlaylist = true;
                                     break;
                                 case (int)PlaylistOption.PrintPlaylist:
+                                    Console.Clear();
                                     Console.WriteLine(mediaPlayer.CurrentPlaylist.ToString());
                                     Console.WriteLine("Press any key to continue.");
                                     Console.ReadKey();
@@ -144,15 +88,16 @@ namespace TP3
                                         if (unusedMedia.Count() == 0)
                                         {
                                             Console.WriteLine("All media have been added to playlist. Press any key to continue...");
+                                            Console.ReadKey();
                                             break;
                                         }
-                                        Console.WriteLine("Available media :");
+                                        Console.WriteLine("Available media :\n");
                                         foreach (Media unusedMediaItem in unusedMedia)
                                         {
                                             Console.WriteLine($"({i}) : {unusedMediaItem.ToString()}");
                                             i++;
                                         }
-                                        Console.WriteLine(mediaPlayer.CurrentPlaylist.ToString() + "\n");
+                                        Console.WriteLine("\n" + mediaPlayer.CurrentPlaylist.ToString() + "\n");
 
                                         Console.Write("Enter choice (0) to quit : ");
                                         success = int.TryParse(Console.ReadLine(), out userChoice);
@@ -174,7 +119,7 @@ namespace TP3
 
                                     } while (true);
 
-                                    Console.ReadKey();
+
 
                                     continue;
                                 case (int)PlaylistOption.RemoveMediaFromPlaylist:
@@ -231,6 +176,13 @@ namespace TP3
                                     continue;
 
                                 case (int)PlaylistOption.StartPlaylist:
+                                    if (mediaPlayer.CurrentPlaylist.Medias.Count() == 0)
+                                    {
+                                        Console.Clear();
+                                        Console.WriteLine("No media to play. Press any key to continue...");
+                                        Console.ReadKey();
+                                        continue;
+                                    }
                                     mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Player.URL = mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Title;
                                     mediaPlayer.CurrentPlaylist.Medias[currentMediaId].Play();
                                     do
@@ -273,41 +225,9 @@ namespace TP3
 
         }
 
-
-
-
-
-
-
-
-
-
-        //Only if we have extra time
         public static string[] GetEnumStringValues<TEnum>() where TEnum : Enum
         {
             return Enum.GetNames(typeof(TEnum));
-        }
-        public static int GetUserChoice(string[] options)
-        {
-            bool success = false;
-            int choice = -1;
-
-            do
-            {
-                Console.Clear();
-                for (int i = 0; i < options.Length; i++)
-                {
-                    Console.WriteLine($"({i}) {options[i]}");
-                }
-
-                Console.Write("Enter choice : ");
-                success = int.TryParse(Console.ReadLine(), out choice);
-                if (choice < 0 || choice > options.Length - 1)
-                {
-                    success = false;
-                }
-            } while (!success);
-            return choice;
         }
         public static int GetUserChoiceEnum(string[] options)
         {
@@ -372,7 +292,6 @@ namespace TP3
             Console.CursorVisible = true;
             return currentSelection;
         }
-
         public static void DisplayMenuPlayOption()
         {
             string[] optionsEnum = GetEnumStringValues<PlayOption>();
@@ -464,14 +383,7 @@ namespace TP3
 
 
         }
-        public static void AddMediaToPlaylist(MediaPlayer mediaPlayer)
-        {
 
-        }
-        public static void RemoveMediaFromPlaylist()
-        {
-
-        }
 
     }
 }
