@@ -238,7 +238,7 @@ namespace TP3
             do
             {
                 Console.Clear();
-
+                Console.WriteLine("Use up and down arroy key to navigate and enter to select.\n");
                 for (int i = 0; i < options.Count(); i++)
                 {
 
