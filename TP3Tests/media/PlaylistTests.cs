@@ -103,8 +103,13 @@ namespace TP3.media.Tests
         public void GetUnsusedMedia()
         {
             const int EXPECTED_COUNT = 3;
+            Media music1 = new Music("music1.mp3", 2024);
+            Media music2 = new Music("music2.mp3", 2024);
+            Media music3 = new Music("music3.mp3", 2024);
             MediaPlayer mediaPlayer = new MediaPlayer();
-            mediaPlayer.LoadMedias("Songs.music");
+            mediaPlayer.Medias.Add(music1);
+            mediaPlayer.Medias.Add(music2);
+            mediaPlayer.Medias.Add(music3);
 
             Playlist playlist = new();
 
@@ -112,6 +117,7 @@ namespace TP3.media.Tests
 
             Assert.AreEqual(EXPECTED_COUNT, unusedMedia.Count());
         }
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void GetUnsusedMediaFromNullMediaList()
@@ -121,7 +127,23 @@ namespace TP3.media.Tests
             Playlist playlist = new();
 
             List<Media> unusedMedia = playlist.FilterUnusedMedias(medias);
+        }
+        [TestMethod]
+        public void GetCurrentMediaId()
+        {
+            Media music1 = new Music("music1.mp3", 2024);
+            Media music2 = new Music("music2.mp3", 2024);
+            Media music3 = new Music("music3.mp3", 2024);
+            Playlist playlist = new Playlist();
+            playlist.AddMedia(music1);
+            playlist.AddMedia(music2);
+            playlist.AddMedia(music3);
 
+
+
+            playlist.CurrentMediaId = 1;
+
+            Assert.AreEqual(music2, playlist.GetCurrentMedia());
 
         }
     }
