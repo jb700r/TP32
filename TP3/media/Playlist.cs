@@ -74,7 +74,7 @@ namespace TP3.media
 
         public void Stop()
         {
-            Media currentMedia = GetCurrentMedia(currentMediaId);
+            Media currentMedia = GetCurrentMedia();
             if (currentMedia != null)
             {
                 currentMedia.Stop();
@@ -127,15 +127,15 @@ namespace TP3.media
             return unusedMedias;
         }
 
-        public Media GetCurrentMedia(int mediaId)
+        public Media GetCurrentMedia()
         {
             if (currentMediaId >= 0 && currentMediaId < Medias.Count)
             {
-                return Medias[currentMediaId];
+                return this.Medias[currentMediaId];
             }
             else
             {
-                return null;
+                throw new ArgumentOutOfRangeException("Not good");
             }
         }
 
@@ -168,6 +168,10 @@ namespace TP3.media
             if (MediaId >= 0 && MediaId < Medias.Count)
             {
                 Medias.RemoveAt(MediaId);
+            }
+            else
+            {
+                throw new InvalidOperationException();
             }
         }
 
